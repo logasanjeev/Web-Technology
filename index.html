@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebMasters</title>
+<style>
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #333;
+}
+
+h1, h2, h3 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Navigation Bar Styling */
+nav {
+  background-color: #333;
+  width: 100%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  height: 60px; /* Fixed height for the navbar */
+}
+
+nav .logo {
+  color: white;
+  font-size: 24px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+nav ul li {
+  position: relative;
+}
+
+nav ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+nav ul li a:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Dropdown Menu */
+nav ul li ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+nav ul li:hover ul {
+  display: block;
+}
+
+nav ul li ul li {
+  width: 200px;
+}
+
+nav ul li ul li a {
+  padding: 10px;
+}
+
+nav ul li ul li a:hover {
+  background-color: #4CAF50;
+}
+
+/* Responsive Navigation Bar */
+.menu-button {
+  display: none;
+  font-size: 30px;
+  color: white;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 14px 20px;
+}
+
+.menu-button:hover {
+  color: white; /* Ensure it stays white on hover */
+}
+
+@media screen and (max-width: 600px) {
+  nav {
+    flex-direction: row; /* Ensure the logo and menu button stay in a row */
+    justify-content: space-between;
+  }
+
+  .menu-button {
+    display: block;
+  }
+
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 60px; /* Position it below the navbar */
+    left: 0;
+    background-color: #333;
+    display: none; /* Initially hidden */
+    z-index: 999; /* Ensure it stays below the navbar */
+  }
+
+  nav ul.show {
+    display: flex; /* Show the menu when the button is clicked */
+  }
+
+  nav ul li {
+    width: 100%;
+  }
+
+  nav ul li ul {
+    position: relative;
+    top: 0;
+  }
+
+  nav ul li ul li {
+    width: 100%;
+  }
+
+  nav .logo {
+    padding: 14px 0;
+  }
+}
+
+/* Container Styling for Sections */
+.container {
+  padding: 50px 20px;
+  width: 85%; /* 75% of the screen width */
+  max-width: 1200px; /* Maximum width for large screens */
+  margin: 0 auto;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 100px; /* Space for the fixed navbar */
+  box-sizing: border-box;
+}
+
+.section {
+  margin-top: 40px; /* Space between sections */
+}
+#contact {
+  margin-bottom: 100px; /* Adjust the value as needed */
+}
+
+/* Button Styling */
+button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  margin: 10px;
+}
+
+button:hover {
+  background-color: #45a049; /* Darker Green */
+  transform: scale(1.05); /* Slightly enlarge the button */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+  background-color: #3e8e41;
+  transform: scale(0.95); /* Slightly shrink the button */
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+/* Input Styling */
+input[type="text"] {
+  padding: 12px 15px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+  font-size: 16px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input[type="text"]:focus {
+  border-color: #4CAF50; /* Green border on focus */
+  box-shadow: 0 0 10px 0 #4CAF50;
+  outline: none; /* Remove default outline */
+}
+
+input[type="text"]::placeholder {
+  color: #aaa; /* Custom placeholder color */
+}
+
+/* Tooltip Styling */
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; 
+  left: 50%;
+  margin-left: -70px;
+  opacity: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Footer Styling */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+footer p {
+  margin: 0;
+  font-size: 14px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">WebMasters</a>
+  <button class="menu-button" onclick="toggleMenu()">&#9776;</button>
+  <ul id="navbar">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a>
+      <ul>
+        <li><a href="#webdesign">Web Design</a></li>
+        <li><a href="#development">Development</a></li>
+        <li><a href="#seo">SEO</a></li>
+      </ul>
+    </li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="home" class="container">
+  <h1>Welcome to Our Site</h1>
+  <input type="text" placeholder="Enter your Mail id">
+  <button>Submit</button>
+  <div class="tooltip">Hover over me
+    <span class="tooltiptext">Tooltip text</span>
+  </div>
+</section>
+
+<section id="about" class="container section">
+  <h2>About Us</h2>
+  <p>We are a dedicated team of professionals who specialize in providing top-notch web development services. Our goal is to create beautiful and functional websites that cater to the needs of our clients.</p>
+</section>
+
+<section id="services" class="container section">
+  <h2>Our Services</h2>
+  <p>We offer a wide range of services to help your business grow:</p>
+  <h3 id="webdesign">Web Design</h3>
+  <p>We create stunning and responsive designs that will leave a lasting impression on your audience.</p>
+  <h3 id="development">Development</h3>
+  <p>We provide custom web development services tailored to your specific business needs.</p>
+  <h3 id="seo">SEO</h3>
+  <p>Our SEO services ensure your website ranks higher in search engine results, increasing visibility and traffic.</p>
+</section>
+
+<section id="contact" class="container section">
+  <h2>Contact Us</h2>
+  <p>Have any questions? We'd love to hear from you. Feel free to reach out to us using the contact form below or via email at info@mywebsite.com.</p>
+</section>
+
+<footer>
+  <p>&copy; 2024 MyWebsite. All Rights Reserved.</p>
+</footer>
+
+<script>
+function toggleMenu() {
+  var navbar = document.getElementById('navbar');
+  navbar.classList.toggle('show');
+}
+</script>
+
+</body>
+</html>
